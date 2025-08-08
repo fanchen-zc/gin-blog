@@ -52,6 +52,10 @@ type Redis struct {
 	IdleTimeout time.Duration
 }
 
+type OpenAI struct {
+	ApiKey string
+}
+
 // var (
 //
 //	Cfg     *ini.File
@@ -69,6 +73,7 @@ var AppSetting = &App{}
 var ServerSetting = &Server{}
 var DatabaseSetting = &Database{}
 var RedisSetting = &Redis{}
+var OpenAISetting = &OpenAI{}
 
 func Setup() {
 	Cfg, err := ini.Load("conf/app.ini")
@@ -92,6 +97,16 @@ func Setup() {
 	err = Cfg.Section("database").MapTo(DatabaseSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo DatabaseSetting err: %v", err)
+	}
+
+	err = Cfg.Section("redis").MapTo(RedisSetting)
+	if err != nil {
+		log.Fatalf("Cfg.MapTo RedisSetting err: %v", err)
+	}
+
+	err = Cfg.Section("openai").MapTo(OpenAISetting)
+	if err != nil {
+		log.Fatalf("Cfg.MapTo OpenAISetting err: %v", err)
 	}
 }
 

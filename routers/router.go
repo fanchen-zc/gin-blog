@@ -60,6 +60,8 @@ func InitRouter() *gin.Engine {
 		r.POST("/tags/import", v1.ImportTag)
 
 		apiv1.POST("/articles/poster/generate", v1.GenerateArticlePoster)
+		// Analyse UI
+		apiv1.POST("/analyse", v1.AnalyseUI)
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
